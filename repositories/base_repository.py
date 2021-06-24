@@ -11,7 +11,7 @@ class BaseRepository():
 
     @contextmanager
     def command_session_scope(self):
-        """Provide a transactional scope around a series of operations."""
+        '''Provide a transactional scope around a series of operations.'''
         session = Session()
         try:
             yield session
@@ -24,7 +24,7 @@ class BaseRepository():
 
     @contextmanager
     def query_session_scope(self):
-        """Provide a transactional scope around a series of operations."""
+        '''Provide a transactional scope around a series of operations.'''
         session = Session()
         session.expire_on_commit = False
         try:

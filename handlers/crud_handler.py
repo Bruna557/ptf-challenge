@@ -1,6 +1,6 @@
 import functools
-import httplib
 from logzero import logger
+from http import HTTPStatus
 import json
 
 from .base_handler import BaseHandler
@@ -18,14 +18,14 @@ class CrudHandler(BaseHandler):
             def wrapper(self, *args):
                 try:
                     result = function(self, *args)
-                    self.write_response(status_code=httplib.OK,result=result)
+                    self.write_response(status_code=HTTPStatus.OK,result=result)
                 except EntityNotFound:
-                    logger.error("Entity not found")
-                    self.write_error(status_code=httplib.NOT_FOUND,
-                                        message="entity not found")
+                    logger.error('Entity not found')
+                    self.write_error(status_code=HTTPStatus.NOT_FOUND,
+                                        message='entity not found')
                 except Exception as err:
                     logger.error(str(err))
-                    self.write_error(status_code=httplib.INTERNAL_SERVER_ERROR,
+                    self.write_error(status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
                                         message=str(err))
             return wrapper
         return decorator

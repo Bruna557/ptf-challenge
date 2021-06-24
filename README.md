@@ -2,14 +2,21 @@
 This project is a challenge from Power to Fly.
 
 ## Stack
-- Python 2.7
+- Python 3.8
 - Flask
 - SQLAlchemy
-- Postgres
+- PostgreSQL
 - Redis
+- Docker
 
-## Setup
-After installing Python 2.7.17, install virtualenv:
+## Running with Docker
+Make sure you have Docker installed and running, than run:
+```bash
+$ docker compose up --build
+```
+
+## Running without Docker
+After installing Python 3.8, install virtualenv:
 ```bash
 $ pip install virtualenv
 ```
