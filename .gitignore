@@ -1,0 +1,6 @@
+*.pyc
+*.sqlite
+todo
+venv/
+__pycache__/
+.vscode/

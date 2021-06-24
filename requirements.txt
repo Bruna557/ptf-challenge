@@ -1,0 +1,4 @@
+logzero
+psycopg2
+SQLAlchemy
+tornado
