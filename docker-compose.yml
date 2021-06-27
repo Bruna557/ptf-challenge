@@ -7,6 +7,7 @@ services:
       - 8080:8080
     depends_on:
       - postgresql
+      - redis
 
   postgresql:
     image: postgres:13
@@ -16,3 +17,21 @@ services:
         - POSTGRES_DB=ptw-challenge
     ports:
       - 5432:5432
+
+  redis:
+    image: "redis:alpine"
+    environment:
+      - REDIS_PASSWORD=psw231377
+      - REDIS_REPLICATION_MODE=master
+    ports:
+      - "6379:6379"
+    command:
+      - "--save 10 100"
+      - "--requirepass psw231377"
+
+# APAGAR DEPOIS QUE USAR
+  redisinsight:
+    container_name: redisinsight-cont
+    image: redislabs/redisinsight
+    ports:
+      - 8001:8001

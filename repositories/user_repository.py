@@ -1,6 +1,5 @@
-from .base_repository import BaseRepository
+from .repository import Repository
 from models.user import User
 
-class UserRepository(BaseRepository):
-
+class UserRepository(Repository):
     entity = User

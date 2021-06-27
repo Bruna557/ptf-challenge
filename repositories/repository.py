@@ -1,17 +1,14 @@
-from logzero import logger
-from sqlalchemy.orm.exc import NoResultFound
 from contextlib import contextmanager
 
 from exception.enitity_not_found import EntityNotFound
-from database.db import Session
+from persistence.db import Session
 
-class BaseRepository():
 
+class Repository():
     entity = NotImplementedError
 
     @contextmanager
     def command_session_scope(self):
-        '''Provide a transactional scope around a series of operations.'''
         session = Session()
         try:
             yield session
@@ -24,9 +21,8 @@ class BaseRepository():
 
     @contextmanager
     def query_session_scope(self):
-        '''Provide a transactional scope around a series of operations.'''
         session = Session()
-        session.expire_on_commit = False
+        session.expire_on_commit = False # avaliar tirar
         try:
             yield session
         except Exception as err:
@@ -34,9 +30,9 @@ class BaseRepository():
         finally:
             session.close()
 
-    def get_all(self):
+    def get_all(self, offset, limit, **kwargs):
         with self.query_session_scope() as session:
-            return session.query(self.entity).all()
+            return session.query(self.entity).filter_by(**kwargs).offset(offset).limit(limit).all()
 
     def get_by_id(self, entity_id):
         with self.query_session_scope() as session:

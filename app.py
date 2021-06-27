@@ -2,13 +2,13 @@ import tornado.ioloop
 import tornado.web
 import tornado.httpserver
 
-from handlers import users_handler
+from api import users_controller
 from repositories import user_repository
 
 
 def make_app():
     return tornado.web.Application([
-        (r'/api/users/?(.*)?',users_handler.UsersHandler,dict(repository=user_repository.UserRepository()))
+        (r'/api/users/?(.*)?',users_controller.UsersController,dict(repository=user_repository.UserRepository()))
     ])
 
 

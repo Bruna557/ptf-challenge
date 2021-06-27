@@ -1,11 +1,10 @@
 from sqlalchemy import Table, Column, Integer, String
 from sqlalchemy_serializer import SerializerMixin
 
-from database.db import Base
+from persistence.db import Base
 
 
 class User(Base, SerializerMixin):
-
     __tablename__ = 'users'
 
     user_id = Column(Integer, primary_key=True, autoincrement=True)

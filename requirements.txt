@@ -1,5 +1,6 @@
 logzero
 psycopg2
+redis
 SQLAlchemy
-tornado
 SQLAlchemy-serializer
+tornado
