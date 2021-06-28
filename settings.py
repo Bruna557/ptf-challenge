@@ -21,7 +21,7 @@ PRODUCTION = {
 TEST = {
     'app_port': 8080,
     'db_connection_string': 'sqlite:///:memory:?cache=shared',
-    'cache_host': '',
+    'cache_host': 'redis',
     'cache_port': 6379,
     'cache_pwd': 'psw231377',
     'cache_expiration': 300

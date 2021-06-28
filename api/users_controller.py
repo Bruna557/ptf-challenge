@@ -33,7 +33,9 @@ class UsersController(Controller):
 
     @handle()
     def get(self, key):
-        if not key:
+        if key:
+            return self.repository.get_by_id(key)
+        else:
             page_size, current_page = self._get_pagination()
             filter = self._get_filter()
             cache_key = f'page_size:{page_size},current_page:{current_page}' + json.dumps(filter)
@@ -49,8 +51,6 @@ class UsersController(Controller):
                     'current_page': current_page,
                     'next_page': result['next_page'],
                     'cache': cache_hit}
-        else:
-            return self.repository.get_by_id(key)
 
     @handle()
     def post(self, key):

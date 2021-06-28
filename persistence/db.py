@@ -9,4 +9,7 @@ Base = declarative_base()
 def get_session(connection_string):
     engine = create_engine(connection_string)
     Session = sessionmaker(bind=engine,expire_on_commit=False)
-    return Session()
+    return Session(), engine
+
+def create_db(engine):
+    Base.metadata.create_all(engine)
