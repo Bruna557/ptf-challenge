@@ -2,9 +2,6 @@ from exception.enitity_not_found import EntityNotFound
 
 
 class Repository():
-    entity = None
-    session = None
-
     def __init__(self, entity, session):
         self.entity = entity
         self.session = session
