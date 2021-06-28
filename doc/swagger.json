@@ -1,0 +1,184 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Power to Fly - BE Challenge",
+    "description": "Get a list of users of find user by ID",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8080",
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "tags": [
+    {
+      "name": "Users",
+      "description": "User operations"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get users",
+        "description": "Returns a list of users",
+        "parameters": [
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "The number of elements per page",
+            "schema": {
+              "type": "number",
+              "example": 10
+            }
+          },
+          {
+            "name": "current_page",
+            "in": "query",
+            "description": "The current page",
+            "schema": {
+              "type": "number",
+              "example": 1
+            }
+          },
+          {
+            "name": "first_name",
+            "in": "query",
+            "description": "Filter by first name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "last_name",
+            "in": "query",
+            "description": "Filter by last name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "description": "Filter by email",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Find user by ID",
+        "description": "Returns a single user",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 123
+          },
+          "first_name": {
+            "type": "string",
+            "example": "Jon"
+          },
+          "last_name": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "jon.doe@gmail.com"
+          }
+        }
+      },
+      "UserList": {
+        "type": "object",
+        "properties": {
+          "cache": {
+            "description": "Tells if result was cached or not",
+            "type": "boolean",
+            "example": true
+          },
+          "page_size": {
+            "description": "The number of elements per page",
+            "type": "number",
+            "example": 10
+          },
+          "current_page": {
+            "description": "Current page",
+            "type": "number",
+            "example": 1
+          },
+          "next_page": {
+            "description": "Tells if there are still users to show on the next page",
+            "type": "boolean",
+            "example": true
+          },
+          "data": {
+            "description": "List of users",
+            "type": "array",
+            "properties": {
+              "1": {
+                "items": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

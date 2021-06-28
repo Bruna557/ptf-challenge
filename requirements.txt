@@ -3,4 +3,5 @@ psycopg2
 redis
 SQLAlchemy
 SQLAlchemy-serializer
+swagger-ui-py
 tornado

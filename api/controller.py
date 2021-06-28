@@ -23,7 +23,7 @@ class Controller(RequestHandler):
     def write_response(self, status_code, result=None):
         self.set_status(status_code)
         if result:
-            self.finish(result)
+            self.finish(json.dumps(result))
         elif status_code:
             self.set_status(status_code)
             self.finish()

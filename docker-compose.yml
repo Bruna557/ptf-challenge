@@ -19,7 +19,7 @@ services:
       - 5432:5432
 
   redis:
-    image: "redis:alpine"
+    image: "redis:6.0"
     environment:
       - REDIS_PASSWORD=psw231377
       - REDIS_REPLICATION_MODE=master
@@ -28,10 +28,3 @@ services:
     command:
       - "--save 10 100"
       - "--requirepass psw231377"
-
-# APAGAR DEPOIS QUE USAR
-  redisinsight:
-    container_name: redisinsight-cont
-    image: redislabs/redisinsight
-    ports:
-      - 8001:8001

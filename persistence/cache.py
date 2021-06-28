@@ -43,7 +43,7 @@ class RedisDb:
     @staticmethod
     def set_data(key, data):
         try:
-            _redis_client.set(key, str(data).encode('utf-8'))
+            _redis_client.set(key, str(data).encode('utf-8'), settings.CACHE_EXPIRATION)
         except Exception as ex:
             logger.error(ex)
             raise ex

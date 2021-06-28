@@ -32,14 +32,17 @@ class Repository():
 
     def get_all(self, offset, limit, **kwargs):
         with self.query_session_scope() as session:
-            return session.query(self.entity).filter_by(**kwargs).offset(offset).limit(limit).all()
+            result = session.query(self.entity).filter_by(**kwargs).offset(offset).limit(limit+1).all()
+            if next_page := len(result) > limit:
+                result = result[:-1]
+            return {'data': [row.to_dict() for row in result], 'next_page': next_page}
 
     def get_by_id(self, entity_id):
         with self.query_session_scope() as session:
             result = session.query(self.entity).get(entity_id)
             if not result:
                 raise EntityNotFound
-            return result
+            return result.to_dict()
 
     def save(self, entity):
         with self.command_session_scope() as session:

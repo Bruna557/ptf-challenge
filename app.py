@@ -1,27 +1,31 @@
+import swagger_ui
 import tornado.ioloop
 import tornado.web
 import tornado.httpserver
 
 from api import users_controller
-from repositories import user_repository
+from persistence import user_repository, cache
+import settings
 
 
 def make_app():
-    return tornado.web.Application([
-        (r'/api/users/?(.*)?',users_controller.UsersController,dict(repository=user_repository.UserRepository()))
-    ])
+    handlers = [
+        (r'/api/users/?(.*)?', users_controller.UsersController,
+         dict(repository = user_repository.UserRepository(), cache = cache.RedisDb()))
+    ]
+    app = tornado.web.Application(handlers)
 
+    swagger_ui.api_doc(
+        app,
+        config_path='./doc/swagger.json',
+        url_prefix='/swagger/spec.html',
+        title='Power to Fly - BE Challenge',
+    )
 
-def runserver():
-    try:
-        print('Starting server...')
-        http_server = tornado.httpserver.HTTPServer(make_app())
-        http_server.listen('8080')
-        tornado.ioloop.IOLoop.current().start()
-    except KeyboardInterrupt:
-        tornado.ioloop.IOLoop.current().stop()
-        print('Server shut down, exiting...')
+    return app
 
 
 if __name__ == '__main__':
-    runserver()
+    app = make_app()
+    app.listen(settings.APP_PORT)
+    tornado.ioloop.IOLoop.current().start()
