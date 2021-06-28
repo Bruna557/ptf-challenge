@@ -3,7 +3,7 @@ This project is a challenge from Power to Fly.
 
 ## Stack
 - Python 3.8
-- Flask
+- Tornado
 - SQLAlchemy
 - PostgreSQL
 - Redis
