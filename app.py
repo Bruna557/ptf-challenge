@@ -4,14 +4,21 @@ import tornado.web
 import tornado.httpserver
 
 from api import users_controller
-from persistence import user_repository, cache
-import settings
+from models.user import User
+from persistence import db, cache, user_repository
+from settings import APP_SETTINGS
 
 
 def make_app():
+    session = db.get_session(APP_SETTINGS['db_connection_string'])
+    repository = user_repository.UserRepository(entity=User, session=session)
+    redis = cache.RedisDb(APP_SETTINGS['cache_host'],
+                          APP_SETTINGS['cache_port'],
+                          APP_SETTINGS['cache_pwd'],
+                          APP_SETTINGS['cache_expiration'])
+
     handlers = [
-        (r'/api/users/?(.*)?', users_controller.UsersController,
-         dict(repository = user_repository.UserRepository(), cache = cache.RedisDb()))
+        (r'/api/users/?(.*)?', users_controller.UsersController, dict(repository=repository, cache=redis))
     ]
     app = tornado.web.Application(handlers)
 
@@ -27,5 +34,5 @@ def make_app():
 
 if __name__ == '__main__':
     app = make_app()
-    app.listen(settings.APP_PORT)
+    app.listen(APP_SETTINGS['app_port'])
     tornado.ioloop.IOLoop.current().start()

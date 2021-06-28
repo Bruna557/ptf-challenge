@@ -1,4 +1,6 @@
+alchemy-mock
 logzero
+mock
 psycopg2
 redis
 SQLAlchemy
