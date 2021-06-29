@@ -5,7 +5,7 @@
     "description": "Get a list of users of find user by ID",
     "version": "1.0.0"
   },
-  "host": "localhost:8080",
+  "host": "ptw-challenge.herokuapp.com",
   "basePath": "/api",
   "schemes": [
     "http"
