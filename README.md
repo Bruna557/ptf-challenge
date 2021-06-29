@@ -9,7 +9,7 @@ This project is a challenge from Power to Fly.
 - Redis
 - Docker
 
-## Running
+## Running locally (develop)
 Make sure you have Docker installed and running.
 ```bash
 $ docker compose up --build
