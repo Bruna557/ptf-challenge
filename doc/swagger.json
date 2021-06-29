@@ -78,6 +78,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad request"
           }
         }
       }
@@ -113,8 +116,7 @@
             }
           },
           "404": {
-            "description": "User not found",
-            "content": {}
+            "description": "User not found"
           }
         }
       }

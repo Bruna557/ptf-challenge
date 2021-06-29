@@ -4,7 +4,7 @@ import json
 from logzero import logger
 
 from .controller import Controller
-from exception.enitity_not_found import EntityNotFound
+from exceptions import exceptions
 
 
 class UsersController(Controller):
@@ -20,10 +20,14 @@ class UsersController(Controller):
                 try:
                     result = function(self, *args)
                     self.write_response(status_code=HTTPStatus.OK,result=result)
-                except EntityNotFound:
-                    logger.error('User not found')
+                except exceptions.EntityNotFound as err:
+                    logger.error(str(err))
                     self.write_error(status_code=HTTPStatus.NOT_FOUND,
-                                     message='User not found')
+                                     message=str(err))
+                except exceptions.InvalidRequest as err:
+                    logger.error(str(err))
+                    self.write_error(status_code=HTTPStatus.BAD_REQUEST,
+                                     message=str(err))
                 except Exception as err:
                     logger.error(str(err))
                     self.write_error(status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
@@ -34,6 +38,10 @@ class UsersController(Controller):
     @handle()
     def get(self, key):
         if key:
+            try:
+                key = int(key)
+            except ValueError:
+                raise exceptions.InvalidRequest('Key must be an integer')
             return self.repository.get_by_id(key)
         else:
             page_size, current_page = self._get_pagination()
@@ -67,4 +75,8 @@ class UsersController(Controller):
         return filter
 
     def _get_pagination(self):
-        return int(self.get_argument('page_size', 20, True)), int(self.get_argument('current_page', 1, True))
+        page_size = int(self.get_argument('page_size', 20, True))
+        current_page = int(self.get_argument('current_page', 1, True))
+        if not (page_size > 0 and current_page > 0):
+            raise exceptions.InvalidRequest('Page size and current page must be greater than zero')
+        return page_size, current_page

@@ -1,4 +1,4 @@
-from exception.enitity_not_found import EntityNotFound
+from exceptions.exceptions import EntityNotFound
 
 
 class Repository():
