@@ -1,6 +1,6 @@
 import swagger_ui
 import tornado.ioloop
-import tornado.options
+from tornado.options import options
 import tornado.web
 import tornado.httpserver
 
