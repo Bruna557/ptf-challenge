@@ -5,6 +5,7 @@ services:
     build: .
     environment:
       - PYTHON_ENV=dev
+      - port=8080
     ports:
       - 8080:8080
     depends_on:

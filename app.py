@@ -1,5 +1,6 @@
 import swagger_ui
 import tornado.ioloop
+import tornado.options
 import tornado.web
 import tornado.httpserver
 
@@ -37,5 +38,6 @@ def make_app(provided_cache=None, test=False):
 
 if __name__ == '__main__':
     app = make_app()
-    app.listen(APP_SETTINGS['app_port'])
+    tornado.options.parse_command_line()
+    app.listen(options.port)
     tornado.ioloop.IOLoop.current().start()
