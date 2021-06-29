@@ -9,7 +9,7 @@ DEVELOPMENT = {
 }
 
 PRODUCTION = {
-    'db_connection_string': 'postgresql://qdccvmmrsbvbkf:22718362e21e56164c25abda03ea289a30559f23e6468a92909793a6f5e1a399@ec2-35-174-35-242.compute-1.amazonaws.com:5432/df9ai60u3rh6f2',
+    'db_connection_string': 'postgresql://gzvotpmtidzuzw:fe9576c3424c1af6a57872f1fff35f726442cfed86ca4bbd8c73f4211a840433@ec2-3-213-85-90.compute-1.amazonaws.com:5432/dfdh2jgo9ajup6',
     'cache_host': 'ec2-3-215-18-238.compute-1.amazonaws.com',
     'cache_port': 15480,
     'cache_pwd': 'p64ed55c880ee88c02ff15f72903ef122ce4abccbea36708fea2b5c5bfe47efe9',
