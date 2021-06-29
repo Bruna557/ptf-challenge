@@ -1,13 +1,15 @@
 import swagger_ui
 import tornado.ioloop
-from tornado.options import options
+from tornado.options import define, options
 import tornado.web
-import tornado.httpserver
 
 from api import users_controller
 from models.user import User
 from persistence import db, cache, user_repository
 from settings import APP_SETTINGS
+
+
+define("port", default="8080", help="Listening port", type=str)
 
 
 def make_app(provided_cache=None, test=False):
