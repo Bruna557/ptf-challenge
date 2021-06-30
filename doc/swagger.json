@@ -1,14 +1,14 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.1",
   "info": {
     "title": "Power to Fly - BE Challenge",
     "description": "Get a list of users of find user by ID",
     "version": "1.0.0"
   },
-  "host": "ptw-challenge.herokuapp.com",
-  "basePath": "/api",
-  "schemes": [
-    "http"
+  "servers": [
+    {
+      "url": "https://ff5158c22898.ngrok.io/api"
+    }
   ],
   "tags": [
     {
@@ -171,12 +171,8 @@
           "data": {
             "description": "List of users",
             "type": "array",
-            "properties": {
-              "1": {
-                "items": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
+            "items": {
+              "$ref": "#/components/schemas/User"
             }
           }
         }
